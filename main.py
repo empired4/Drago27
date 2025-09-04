@@ -481,7 +481,7 @@ async def utk(course_id):
             fi = course.get("id")
             tn = course.get("title")
             binfo = course.get("segment_information")
-            print(f"📚 {fi} - {tn}\n{binfo}")
+            await on_update(f"📚 {fi} - {tn}\n{binfo}")
 
             buffer = StringIO()  # 🧠 Memory buffer for speed
 
@@ -493,7 +493,7 @@ async def utk(course_id):
             for subj in dr4["data"]["list"]:
                 sfi = subj.get("id")
                 sfn = subj.get("title").strip().replace("\n", " ")
-                print(f"📘 Subject: {sfn}")
+                await on_update(f"📘 Subject: {sfn}")
 
                 # Layer 2
                 d7 = {"course_id": fi, "parent_id": fi, "layer": 2, "page": 1, "revert_api": "1#0#0#1", "subject_id": sfi, "tile_id": 0, "topic_id": sfi, "type": "content"}
@@ -536,11 +536,11 @@ async def utk(course_id):
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyromod import listen
-# Set these with your values
-API_ID = 21179966  # 🔑 Replace with your API ID
-API_HASH = "d97919fb0a3c725e8bb2a25bbb37d57c"  # 🔑 Replace with your API HASH
-BOT_TOKEN = "8379064968:AAE6H8ReO9byzujjWJbaYOz8SLbZL3uGt18"  # 🤖 Replace with your bot token
-ALLOWED_USER = 7326397503  # your Telegram user ID
+
+API_ID = 24250238  # 🔑 Replace with your API ID
+API_HASH = "cb3f118ce5553dc140127647edcf3720"  # 🔑 Replace with your API HASH
+BOT_TOKEN = "7511520910:AAFpmjNQZFCyqDILQV7GzLpnbxPZ4CEhXxw"  # 🤖 Replace with your bot token
+ALLOWED_USER = 6175650047  # your Telegram user ID
 
 bot = Client("utkarqwesh_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
