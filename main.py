@@ -481,7 +481,7 @@ async def utk(course_id):
             fi = course.get("id")
             tn = course.get("title")
             binfo = course.get("segment_information")
-            await on_update(f"📚 {fi} - {tn}\n{binfo}")
+            print(f"📚 {fi} - {tn}\n{binfo}")
 
             buffer = StringIO()  # 🧠 Memory buffer for speed
 
@@ -493,7 +493,7 @@ async def utk(course_id):
             for subj in dr4["data"]["list"]:
                 sfi = subj.get("id")
                 sfn = subj.get("title").strip().replace("\n", " ")
-                await on_update(f"📘 Subject: {sfn}")
+                print(f"📘 Subject: {sfn}")
 
                 # Layer 2
                 d7 = {"course_id": fi, "parent_id": fi, "layer": 2, "page": 1, "revert_api": "1#0#0#1", "subject_id": sfi, "tile_id": 0, "topic_id": sfi, "type": "content"}
@@ -522,29 +522,25 @@ async def utk(course_id):
                                     buffer.write(result + "\n")
 
             # 💾 Final write to file
-            safe_tn = tn.replace(" ",
-            "_").replace("/", "_").replace("\\",
-            "_")
-            filename = f"{safe_tn}.txt"
-
-            with open(filename, "a", encoding="utf-8") as f:
-    f.write(f"\n\n📦 Course: {tn}\n{'='*60}\n")
-    f.write(buffer.getvalue())
+            with open("final.txt", "a", encoding='utf-8') as f:
+                # f.write(f"\n\n📦 Course: {tn}\n{'='*60}\n")
+                f.write(buffer.getvalue())
 
         except Exception as e:
             print(f"❌ Error in course {fi}: {e}")
 
     end = time.time()
     print(f"\n⏱️ Total Extraction Completed in {end - start:.2f} seconds.")
-    await message.reply_text(f"📁 Output saved to: {filename}")
+    print("📁 Output saved to: final_output.txt")
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyromod import listen
-
-API_ID = 24250238  # 🔑 Replace with your API ID
-API_HASH = "cb3f118ce5553dc140127647edcf3720"  # 🔑 Replace with your API HASH
-BOT_TOKEN = "7511520910:AAFpmjNQZFCyqDILQV7GzLpnbxPZ4CEhXxw"  # 🤖 Replace with your bot token
-ALLOWED_USER = 6175650047  # your Telegram user ID
+# Set these with your values
+API_ID = 21179966  # 🔑 Replace with your API ID
+API_HASH = "d97919fb0a3c725e8bb2a25bbb37d57c"  # 🔑 Replace with your API HASH
+BOT_TOKEN = "8379064968:AAE6H8ReO9byzujjWJbaYOz8SLbZL3uGt18"  # 🤖 Replace with your bot token
+ALLOWED_USER = 7326397503  # your Telegram user ID
 
 bot = Client("utkarqwesh_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
@@ -570,13 +566,12 @@ async def get_course_id(client: Client, message: Message):
         # Step 3: Acknowledge
         await message.reply("⚙️ Starting extraction... Please wait.")
 
-        #Step 4: Run your main logic
+        # Step 4: Run your main logic
         await utk(course_id)  # 🔁 Your own function that extracts course and saves 'final_output.txt'
 
         # Step 5: Send result
-        await message.reply_document(filename,
-        caption=f"✅ Extraction completed!")
-        os.remove(filename)
+        await message.reply_document("final.txt", caption=f"✅ Extraction completed!")
+        os.remove("final.txt")
 
     except Exception as e:
         await message.reply(f"❌ Error: {e}")
