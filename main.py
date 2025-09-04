@@ -527,11 +527,9 @@ async def utk(course_id):
             "_")
             filename = f"{safe_tn}.txt"
 
-            with open(filename, "a",
-            encoding='utf-8') as f:
-                f.write(f"\n\n📦 Course: {tn}
-                \n{'='*60}\n")
-                    f.write(buffer.getvalue())
+            with open(filename, "a", encoding="utf-8") as f:
+    f.write(f"\n\n📦 Course: {tn}\n{'='*60}\n")
+    f.write(buffer.getvalue())
 
         except Exception as e:
             print(f"❌ Error in course {fi}: {e}")
