@@ -586,10 +586,10 @@ async def utk(course_id):
     print("📁 Output saved to: final.txt")
 
 # Set these with your values
-API_ID = 21179966  # 🔑 Replace with your API ID
-API_HASH = "d97919fb0a3c725e8bb2a25bbb37d57c"  # 🔑 Replace with your API HASH
-BOT_TOKEN = "8379064968:AAE6H8ReO9byzujjWJbaYOz8SLbZL3uGt18"  # 🤖 Replace with your bot token
-ALLOWED_USER = 7326397503  # your Telegram user ID
+API_ID = 24250238
+API_HASH = "cb3f118ce5553dc140127647edcf3720"
+BOT_TOKEN = "7511520910:AAFpmjNQZFCyqDILQV7GzLpnbxPZ4CEhXxw"
+ALLOWED_USER = 6175650047
 
 bot = Client("utkarqwesh_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
