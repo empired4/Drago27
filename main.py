@@ -1,3 +1,7 @@
+# Install all required libraries for the bot to run correctly, including tgcrypto for speed
+!pip install pyrogram pyromod requests pycryptodome tgcrypto
+
+# --- Your Bot Code Starts Here ---
 import requests
 import json
 from Crypto.Cipher import AES
@@ -11,6 +15,7 @@ import re
 from io import StringIO
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyromod import listen # <--- YEH LINE ZAROOR ADD KAREIN
 
 # --- Configuration ---
 API_ID = 24250238
@@ -131,7 +136,6 @@ def decrypt_and_load_json(enc):
     return None
 
 def sanitize_filename(name):
-    # Remove characters that are invalid in file names
     s = str(name).strip().replace(' ', '_')
     s = re.sub(r'(?u)[^-\w.]', '', s)
     return s
@@ -308,6 +312,8 @@ async def utk(course_id, message_instance: Message):
         await message_instance.edit_text("✅ Extraction complete! Sending file...")
         return output_filename
 
+    except asyncio.TimeoutError:
+        await message_instance.reply("⏳ Timed out! Please restart the process with /utkarsh.")
     except Exception as e:
         await message_instance.reply(f"❌ An error occurred during extraction: {e}")
         handle_error("Main extraction process failed", e)
@@ -362,6 +368,12 @@ async def start_extraction_callback(client, callback_query):
         await message.reply("⏳ Timed out! Please restart the process with /utkarsh.")
     except Exception as e:
         await message.reply(f"❌ An error occurred: {e}")
-        
+
+# Correct way to run the bot in Google Colab's event loop
 print("🚀 Bot started! Listening for commands...")
-bot.run()
+async def main():
+    await bot.start()
+    await bot.idle()
+
+if __name__ == "__main__":
+    asyncio.run(main())
