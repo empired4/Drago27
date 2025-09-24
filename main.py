@@ -1,5 +1,5 @@
 # Install all required libraries for the bot to run correctly, including tgcrypto for speed
-!pip install pyrogram pyromod requests pycryptodome tgcrypto
+pip install pyrogram pyromod requests pycryptodome tgcrypto
 
 # --- Your Bot Code Starts Here ---
 import requests
